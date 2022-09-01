@@ -55,7 +55,12 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    // Create basic parameter layout to initialize a AudioProcessorValueTreeState correctly
+    static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
 
+    // juce::AudioProcessorValueTreeState is used to coordinate synching parameters with the knobs on the gui/values in the dsp
+    juce::AudioProcessorValueTreeState apvts{ *this, nullptr, "Parameters", createParameterLayout() };
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimpleEQAudioProcessor)
